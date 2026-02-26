@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.6.1/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <link rel="stylesheet" href="css/main.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <audio id="draw2Sound">
+      <source src="./assets/SF2.wav" type="audio/wav" />
+    </audio>
+    <div class="buttons">
+      <a class="btn" href="index.html">Go Back</a>
+    </div>
+    <a-scene
+      mindar-image="imageTargetSrc: ./assets/targets.mind; maxTrack: 3; missTolerance: 10;"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-entity light="type: ambient; intensity: 1"></a-entity>
+      <a-entity
+        light="type: directional; intensity: 0.8"
+        position="1 2 1"
+      ></a-entity>
+
+      <a-assets>
+        <a-asset-item id="arrow" src="./assets/arrow.glb"></a-asset-item>
+      </a-assets>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model
+          scale="0.3 0.3 0.3"
+          rotation="90 0 0"
+          position="0 0 0.1"
+          src="#arrow"
+          animation="property: rotation; to: 450 360 0; dur: 3000; loop: true; easing: linear;"
+        ></a-gltf-model>
+
+        <!-- Orbit container - beide ringen draaien eromheen -->
+        <a-entity
+          position="0 0 -0.8"
+          animation="property: rotation; to: 0 0 360; dur: 3000; loop: true; easing: linear;"
+        >
+          <!-- Vortex Ring 1 -->
+          <a-entity position="0.4 0 0">
+            <a-torus
+              radius="0.3"
+              tube="0.05"
+              color="#FF6B6B"
+              material="opacity: 0.5"
+              animation="property: rotation; to: 0 0 360; dur: 3000; loop: true; easing: linear;"
+            ></a-torus>
+          </a-entity>
+
+          <!-- Vortex Ring 2 -->
+          <a-entity position="-0.4 0 0">
+            <a-torus
+              radius="0.25"
+              tube="0.05"
+              color="#4ECDC4"
+              material="opacity: 0.5"
+              animation="property: rotation; to: 0 0 -360; dur: 3000; loop: true; easing: linear;"
+            ></a-torus>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 1">
+        <a-sphere
+          scale="1"
+          position="0.5 0 0"
+          radius="0.3"
+          color="red"
+          animation="property: position; to: 0.7 0 0; dur: 1500; dir: alternate; loop: true;"
+        ></a-sphere>
+        <a-sphere
+          scale="1"
+          position="-0.5 0 0"
+          radius="0.3"
+          color="blue"
+          animation="property: position; to: -0.7 0 0; dur: 1500; dir: alternate; loop: true;"
+        ></a-sphere>
+        <a-sphere
+          scale="1"
+          position="0 0.5 0"
+          radius="0.3"
+          color="green"
+          animation="property: position; to: 0 0.7 0; dur: 1500; dir: alternate; loop: true;"
+        ></a-sphere>
+        <a-sphere
+          scale="1"
+          position="0 -0.5 0"
+          radius="0.3"
+          color="yellow"
+          animation="property: position; to: 0 -0.7 0; dur: 1500; dir: alternate; loop: true;"
+        ></a-sphere>
+      </a-entity>
+      <a-entity id="imageTarget2" mindar-image-target="targetIndex: 2">
+        <a-plane
+          src="./assets/uno-card-back.png"
+          position="-0.8 0 0"
+          width="1.8"
+          height="1.8"
+          rotation="0 0 0"
+          scale="0.1 0.1 0.1"
+          material="transparent: true; alphaTest: 0.1;"
+          animation="property: scale; to: 1 1 1; dur: 800; easing: easeOutElastic"
+        ></a-plane>
+        <a-plane
+          src="./assets/uno-card-back.png"
+          position="0.8 0 0"
+          width="1.8"
+          height="1.8"
+          rotation="0 0 0"
+          scale="0.1 0.1 0.1"
+          material="transparent: true; alphaTest: 0.1;"
+          animation="property: scale; to: 1 1 1; dur: 800; easing: easeOutElastic; delay: 150"
+        ></a-plane>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 3">
+        <a-box
+          position="0 0 0.1"
+          color="black"
+          material="opacity: 0.8"
+          width="10"
+          height="10"
+          depth="1"
+        ></a-box>
+        <a-box
+          width="0.15"
+          height="0.6"
+          depth="0.05"
+          color="black"
+          position="-0.1 0 0"
+        ></a-box>
+        <a-box
+          width="0.15"
+          height="0.6"
+          depth="0.05"
+          color="black"
+          position="0.1 0 0"
+        ></a-box>
+      </a-entity>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    </a-scene>
+    <script src="./scripts/image.js"></script>
+  </body>
+</html>
